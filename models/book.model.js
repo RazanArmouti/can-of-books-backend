@@ -1,14 +1,33 @@
 'use strict';
 const mongoose = require('mongoose');
+const { ownerSchema, OwnerModel } = require('./owner.model');
 
 const bookSchema = new mongoose.Schema({
   title: String,
   description: String,
   image: String,
-  email: String
+  // email: String
+  owner: ownerSchema
 });
 
 const BookModel = mongoose.model('book', bookSchema);
+const seedBook = () => {
+  let Owner = new OwnerModel({
+    ownerName: 'Razan Armouti',
+    email: 'admin@gmail.com'
+  });
+  Owner.save();
+  let newBook = {
+    title: 'Twilight',
+    description: 'About three things I was absolutely positive',
+    image: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1361039443l/41865.jpg',
+    owner: Owner
+
+  };
+
+  let Book = new BookModel(newBook);
+  Book.save();
+};
 
 //let seedBook = () => {
 // let newBook = new BookModel({
@@ -17,35 +36,22 @@ const BookModel = mongoose.model('book', bookSchema);
 //   description: 'Could you survive on your own in the wild, with every one out to make sure you don\'t live to see the morning?',
 //   image: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg'
 
-
-
-//   //     bookdetails: [{
-//   //       title: 'The Hunger Games',
-//   //       description: 'Could you survive on your own in the wild, with every one out to make sure you don\'t live to see the morning?',
-//   //       image: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg'
-
-
-//   //     },
-//   //     {
-//   //       title: 'Divergent',
-//   //       description: 'In Beatrice Prior\'s dystopian Chicago world, society is divided into five factions, each dedicated to the cultivation of a particular virtue—Candor (the honest), Abnegation (the selfless), Dauntless (the brave), Amity (the peaceful), and Erudite (the intelligent).',
-//   //       image: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1618526890l/13335037._SY475_.jpg'
-
-
-//   //     },
-//   //     {
-//   //       title: 'The Fault in Our Stars',
-//   //       description: 'Despite the tumor-shrinking medical miracle that has bought her a few years, Hazel has never been anything but terminal, her final chapter inscribed upon diagnosis. ',
-//   //       image: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1631549175l/11870085._SY475_.jpg'
-
-
-//   //     }]
-//
 // });
 // newBook.save();
 //};
-module.exports = BookModel;
+
+//module.exports = BookModel;
 //module.exports = seedBook;
-// module.exports={
-//   bookSchema
-// };
+module.exports = {
+  BookModel,
+  seedBook
+  // bookSchema
+};
+
+
+
+
+
+
+
+
