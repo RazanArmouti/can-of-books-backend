@@ -6,9 +6,10 @@ let BooksController = (req, res) => {
     res.status(200).json(data);
   });
 };
+
 let getBooksController = (req, res) => {
-  let BookId = req.query.id;
-  BookModel.findOne({ _id: BookId }).then(data => {
+  let BookID = req.query.id;
+  BookModel.findOne({ _id:BookID }).then(data => {
     res.json(data);
   });
 };
